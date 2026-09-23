@@ -13,7 +13,7 @@ export function createWeatherHandler(env, fetchWeather = fetch) {
     const type = url.searchParams.get('type') || 'weather';
     if (!Object.hasOwn(cities, city) || !['weather', 'forecast'].includes(type)) return send(400, { error: 'Thành phố hoặc loại dự báo không hợp lệ.' });
     const key = env.PUBLIC_OPENWEATHER_API_KEY;
-    if (!key) return send(503, { error: 'Chưa cấu hình OpenWeather phía server. Vui lòng khởi động lại Vite sau khi thêm .env.local.' });
+    if (!key) return send(503, { error: 'Dịch vụ thời tiết chưa được cấu hình. Quản trị viên cần thêm PUBLIC_OPENWEATHER_API_KEY vào biến môi trường server và triển khai lại.' });
     const base = (env.PUBLIC_OPENWEATHER_BASE_URL || 'https://api.openweathermap.org/data/2.5').replace(/\/$/, '');
     if (base !== 'https://api.openweathermap.org/data/2.5') return send(503, { error: 'Địa chỉ OpenWeather không hợp lệ.' });
     const cacheKey = `${city}:${type}`;
